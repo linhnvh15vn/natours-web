@@ -1,9 +1,16 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
+import { Lato } from 'next/font/google';
 
 import Footer from '@/components/footer';
 import Header from '@/components/header';
+import QueryProvider from '@/components/providers/query-provider';
+
+const lato = Lato({
+  weight: ['300', '700'],
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,10 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <Header />
-        {children}
-        <Footer />
+      <body className={`${lato.className}`}>
+        <QueryProvider>
+          <Header />
+          {children}
+          <Footer />
+        </QueryProvider>
       </body>
     </html>
   );

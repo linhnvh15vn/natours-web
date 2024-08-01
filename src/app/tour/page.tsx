@@ -1,22 +1,15 @@
-import TourCard from '@/components/tour/tour-card';
 import React from 'react';
-import classNames from 'classnames/bind';
-import styles from './page.module.scss';
 
-const cx = classNames.bind(styles);
+import axiosInstance from '@/api/axios-instance';
+import TourCard from '@/components/tour/tour-card';
 
 export default async function Page() {
-  const data = await fetch('http://127.0.0.1:8080/api/v1/tours', {
-    cache: 'no-cache',
-  });
-  const tours = await data.json();
-
-  console.log(tours);
+  const data = await axiosInstance.get('/tours');
 
   return (
     <main className="main">
-      <div className={cx('card-container')}>
-        {tours.data.items.map((tour) => (
+      <div className="card-container">
+        {data.data.items.map((tour) => (
           <TourCard key={tour._id} tour={tour} />
         ))}
       </div>
