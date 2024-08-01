@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Image from 'next/image';
+import TourGuide from '@/components/tour/tour-guide';
+import TourReviewCard from '@/components/tour/tour-review-card';
 
 interface Props {
   params: {
@@ -15,8 +17,6 @@ export default async function Page({ params }: Props) {
   );
   const data = await response.json();
   const tour = data.data;
-
-  console.log(tour);
 
   return (
     <div>
@@ -95,17 +95,7 @@ export default async function Page({ params }: Props) {
             <div className="overview-box__group">
               <h2 className="heading-secondary ma-bt-lg">Your tour guides</h2>
               {tour.guides.map((guide) => (
-                <div key={guide.id} className="overview-box__detail">
-                  <Image
-                    src={guide.photo}
-                    alt={guide.role}
-                    className="overview-box__img"
-                    width={36}
-                    height={36}
-                  />
-                  <span className="overview-box__label">{guide.role}</span>
-                  <span className="overview-box__text">{guide.name}</span>
-                </div>
+                <TourGuide key={guide.id} guide={guide} />
               ))}
             </div>
           </div>
@@ -146,24 +136,7 @@ export default async function Page({ params }: Props) {
       <section className="section-reviews">
         <div className="reviews">
           {tour.reviews.map((review) => (
-            <div key={review._id} className="reviews__card">
-              <div className="reviews__avatar">
-                <img
-                  src={review.user.photo}
-                  alt="Jim Brown"
-                  className="reviews__avatar-img"
-                />
-                <h6 className="reviews__user">{review.user.name}</h6>
-              </div>
-              <p className="reviews__text">{review.review}</p>
-              <div className="reviews__rating">
-                {Array.from({ length: review.rating }).map((el) => (
-                  <svg key={el} className="reviews__star reviews__star--active">
-                    <use xlinkHref="/icons.svg#icon-star" />
-                  </svg>
-                ))}
-              </div>
-            </div>
+            <TourReviewCard key={review.id} review={review} />
           ))}
         </div>
       </section>

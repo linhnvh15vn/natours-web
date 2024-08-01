@@ -15,7 +15,7 @@ export default function Header(props: Props) {
         <a className="nav__el" href="/login">
           Log in
         </a>
-        <a className="nav__el nav__el--cta" href="/sign-up">
+        <a className="nav__el nav__el--cta" href="#">
           Sign up
         </a>
       </nav>

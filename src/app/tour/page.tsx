@@ -1,5 +1,9 @@
 import TourCard from '@/components/tour/tour-card';
 import React from 'react';
+import classNames from 'classnames/bind';
+import styles from './page.module.scss';
+
+const cx = classNames.bind(styles);
 
 export default async function Page() {
   const data = await fetch('http://127.0.0.1:8080/api/v1/tours', {
@@ -11,7 +15,7 @@ export default async function Page() {
 
   return (
     <main className="main">
-      <div className="card-container">
+      <div className={cx('card-container')}>
         {tours.data.items.map((tour) => (
           <TourCard key={tour._id} tour={tour} />
         ))}
