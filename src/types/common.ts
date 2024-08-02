@@ -1,3 +1,19 @@
+export type HttpResponse<T> = {
+  status: string;
+  data: T;
+};
+
+export type PaginatedData<T> = {
+  status: string;
+  data: {
+    currentItemCount: number;
+    itemsPerPage: number;
+    totalItems: number;
+    totalPages: number;
+    items: T[];
+  };
+};
+
 export type Tour = {
   _id: string;
   slug: string;
