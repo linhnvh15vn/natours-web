@@ -14,6 +14,14 @@ export type PaginatedData<T> = {
   };
 };
 
+export type AuthenticationResponse = {
+  status: string;
+  data: {
+    token: string;
+    user: User;
+  };
+};
+
 export type Tour = {
   _id: string;
   slug: string;
