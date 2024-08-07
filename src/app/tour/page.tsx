@@ -1,21 +1,27 @@
 import React from 'react';
 
-import { cookies } from 'next/headers';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 
-import axiosInstance from '@/api/axios-instance';
-import TourCard from '@/components/tour/tour-card';
+import TourList from '@/components/tour/tour-list';
+import { getAllTours } from '@/lib';
 
 export default async function Page() {
-  const data = await axiosInstance.get('/tours', {});
-  console.log(cookies().get('token'));
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ['tours'],
+    queryFn: getAllTours,
+  });
 
   return (
-    <main className="main">
-      <div className="card-container">
-        {data.data.items.map((tour) => (
-          <TourCard key={tour._id} tour={tour} />
-        ))}
-      </div>
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <main className="main">
+        <TourList />
+      </main>
+    </HydrationBoundary>
   );
 }
