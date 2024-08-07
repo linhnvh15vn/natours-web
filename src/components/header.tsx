@@ -1,10 +1,18 @@
+'use client';
+
 import React from 'react';
 
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { getMe } from '@/lib';
+
 export default function Header() {
-  const user = { name: 'Linh Nguyen' };
+  const { data: meData } = useQuery({
+    queryKey: ['me'],
+    queryFn: getMe,
+  });
 
   return (
     <header className="header">
@@ -22,7 +30,7 @@ export default function Header() {
         />
       </div>
       <nav className="nav nav--user">
-        {user ? (
+        {meData ? (
           <>
             <Link className="nav__el nav__el--logout" href="#">
               Log out
@@ -30,12 +38,12 @@ export default function Header() {
             <Link className="nav__el" href="/me">
               <Image
                 className="nav__user-img"
-                src="/img/users/{{ user.photo }}"
-                alt="Photo of {{ user.name }}"
+                src={meData.photo}
+                alt={`Photo of ${meData.name}`}
                 width={35}
                 height={35}
               />
-              <span>{user.name.split(' ')[0]}</span>
+              <span>{meData.name.split(' ')[0]}</span>
             </Link>
           </>
         ) : (

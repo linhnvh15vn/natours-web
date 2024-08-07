@@ -1,8 +1,13 @@
 import React from 'react';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Page() {
+import { getMe } from '@/lib';
+
+export default async function Page() {
+  const me = await getMe();
+
   return (
     <main className="main">
       <div className="user-view">
@@ -56,7 +61,7 @@ export default function Page() {
                   id="name"
                   className="form__input"
                   type="text"
-                  value=""
+                  value={me.name}
                   required
                   name="name"
                 />
@@ -69,16 +74,18 @@ export default function Page() {
                   id="email"
                   className="form__input"
                   type="email"
-                  value=""
+                  value={me.email}
                   required
                   name="email"
                 />
               </div>
               <div className="form__group form__photo-upload">
-                <img
-                  className="form__user-ph"
-                  src="/img/users/default.jpg"
+                <Image
+                  className="form__user-photo"
+                  src={me.photo}
                   alt="User photo"
+                  width={75}
+                  height={75}
                 />
                 <input
                   className="form__upload"

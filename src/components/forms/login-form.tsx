@@ -4,13 +4,10 @@ import React from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { cookies } from 'next/headers';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import axiosInstance from '@/api/axios-instance';
 import { login } from '@/lib';
-import { type AuthenticationResponse } from '@/types';
 
 const schema = z.object({
   email: z.string().email().min(1, 'Enter your email address'),
