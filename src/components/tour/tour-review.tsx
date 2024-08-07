@@ -16,8 +16,8 @@ export default function TourReview({ review }: Props) {
           className="reviews__avatar-img"
           src={review.user.photo}
           alt={review.user.name}
-          width={35}
-          height={35}
+          width={45}
+          height={45}
         />
         <h6 className="reviews__user">{review.user.name}</h6>
       </div>

@@ -353,6 +353,7 @@ body {
 
 .header__hero {
   height: 100%;
+  position: relative;
 }
 
 .header__hero-img {
