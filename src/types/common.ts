@@ -4,14 +4,11 @@ export type HttpResponse<T> = {
 };
 
 export type PaginatedData<T> = {
-  status: string;
-  data: {
-    currentItemCount: number;
-    itemsPerPage: number;
-    totalItems: number;
-    totalPages: number;
-    items: T[];
-  };
+  currentItemCount: number;
+  itemsPerPage: number;
+  totalItems: number;
+  totalPages: number;
+  items: T[];
 };
 
 export type AuthenticationResponse = {
