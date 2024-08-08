@@ -1,5 +1,6 @@
 import React from 'react';
 
+import dayjs from 'dayjs';
 import Image from 'next/image';
 
 import { type Tour } from '@/types';
@@ -46,12 +47,7 @@ export default function TourCard({ tour }: Props) {
           <svg className="card__icon">
             <use xlinkHref="/icons.svg#icon-calendar" />
           </svg>
-          <span>
-            {tour.startDates[0].toLocaleString('en-us', {
-              month: 'long',
-              year: 'numeric',
-            })}
-          </span>
+          <span>{dayjs(tour.startDates[0]).format('YYYY/MM/DD')}</span>
         </div>
         <div className="card__data">
           <svg className="card__icon">

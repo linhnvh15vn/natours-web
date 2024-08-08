@@ -1,10 +1,12 @@
 import React from 'react';
 
+import dayjs from 'dayjs';
 import Image from 'next/image';
 
-import axiosInstance from '@/api/axios-instance';
+import TourFact from '@/components/tour/tour-fact';
+import TourGuide from '@/components/tour/tour-guide';
 import TourReview from '@/components/tour/tour-review';
-import { type Tour } from '@/types';
+import { getTourById } from '@/lib';
 
 interface Props {
   params: {
@@ -13,16 +15,12 @@ interface Props {
 }
 
 export default async function Page({ params }: Props) {
-  const data = await axiosInstance.get<Tour>(`/tours/${params.tourId}`);
-  const tour = data.data;
+  const tour = await getTourById(params.tourId);
 
   const facts = [
     {
       label: 'Next date',
-      text: tour.startDates[0].toLocaleString('en-us', {
-        month: 'long',
-        year: 'numeric',
-      }),
+      text: dayjs(tour.startDates[0]).format('YYYY/MM/DD'),
       icon: '/icons.svg#icon-calendar',
     },
     {
@@ -83,29 +81,13 @@ export default async function Page({ params }: Props) {
             <div className="overview-box__group">
               <h2 className="heading-secondary ma-bt-lg">Quick facts</h2>
               {facts.map((fact) => (
-                <div key={fact.label} className="overview-box__detail">
-                  <svg className="overview-box__icon">
-                    <use xlinkHref={fact.icon} />
-                  </svg>
-                  <span className="overview-box__label">{fact.label}</span>
-                  <span className="overview-box__text">{fact.text}</span>
-                </div>
+                <TourFact key={fact.label} fact={fact} />
               ))}
             </div>
             <div className="overview-box__group">
               <h2 className="heading-secondary ma-bt-lg">Your tour guides</h2>
               {tour.guides.map((guide) => (
-                <div key={guide._id} className="overview-box__detail">
-                  <Image
-                    className="overview-box__img"
-                    src={guide.photo}
-                    alt={guide.name}
-                    width={35}
-                    height={35}
-                  />
-                  <span className="overview-box__label">{guide.role}</span>
-                  <span className="overview-box__text">{guide.name}</span>
-                </div>
+                <TourGuide key={guide._id} guide={guide} />
               ))}
             </div>
           </div>
@@ -121,7 +103,7 @@ export default async function Page({ params }: Props) {
       </section>
 
       <section className="section-pictures">
-        {tour.images?.map((image, i) => (
+        {tour.images?.slice(0, 3).map((image, i) => (
           <div key={image} className="picture-box">
             <Image
               className={`picture-box__img picture-box__img--${i + 1}`}

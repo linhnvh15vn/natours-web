@@ -34,6 +34,11 @@ export const getAllTours = async () => {
   return response.data;
 };
 
+export const getTourById = async (_id: string) => {
+  const response: HttpResponse<Tour> = await axiosInstance.get(`/tours/${_id}`);
+  return response.data;
+};
+
 export const getMe = async () => {
   const response: HttpResponse<User> = await axiosInstance.get('/users/me', {
     headers: {
