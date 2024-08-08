@@ -4,6 +4,7 @@ import React from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -60,10 +61,14 @@ export default function LoginForm() {
           {...register('password')}
         />
       </div>
-      <div className="form__group">
+      <div
+        className="form__group"
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
         <button type="submit" className="btn btn--green">
           Login
         </button>
+        <Link href="/forgot-password">Forgot password?</Link>
       </div>
     </form>
   );
