@@ -21,6 +21,18 @@
   box-sizing: inherit;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #55c57a;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
 html {
   font-size: 62.5%;
   -webkit-box-sizing: border-box;
