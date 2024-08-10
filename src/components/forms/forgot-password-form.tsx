@@ -3,8 +3,11 @@
 import React from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+import { forgotPassword } from '@/lib';
 
 const schema = z.object({
   email: z.string().email(),
@@ -15,8 +18,12 @@ export default function ForgotPasswordForm() {
     resolver: zodResolver(schema),
   });
 
+  const { mutate } = useMutation({
+    mutationFn: forgotPassword,
+  });
+
   const onSubmit = async (formData: z.infer<typeof schema>) => {
-    console.log(formData);
+    mutate(formData.email);
   };
 
   return (
