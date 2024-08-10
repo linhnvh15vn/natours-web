@@ -19,6 +19,11 @@ export type AuthenticationResponse = {
   };
 };
 
+export type HttpError = {
+  status: string;
+  message: string;
+};
+
 export type Tour = {
   _id: string;
   slug: string;

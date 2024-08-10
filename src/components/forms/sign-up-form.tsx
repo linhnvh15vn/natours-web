@@ -3,8 +3,11 @@
 import React from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+import { signUp } from '@/lib';
 
 const schema = z.object({
   name: z.string().min(1),
@@ -26,8 +29,12 @@ export default function SignUpForm() {
     resolver: zodResolver(schema),
   });
 
+  const { mutate } = useMutation({
+    mutationFn: signUp,
+  });
+
   const onSubmit = async (formData: z.infer<typeof schema>) => {
-    console.log(formData);
+    mutate(formData);
   };
 
   return (

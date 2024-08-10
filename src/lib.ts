@@ -3,6 +3,7 @@
 import { cookies } from 'next/headers';
 
 import axiosInstance from '@/api/axios-instance';
+import { type InferredResetPasswordSchema } from '@/components/forms/reset-password-form';
 import {
   type User,
   type HttpResponse,
@@ -24,6 +25,37 @@ export const login = async ({
   );
 
   cookies().set('accessToken', response.data.token);
+
+  return response;
+};
+
+export const signUp = async (body) => {
+  const response: AuthenticationResponse = await axiosInstance.post(
+    '/auth/signup',
+    body,
+  );
+
+  cookies().set('accessToken', response.data.token);
+
+  return response;
+};
+
+export const forgotPassword = async (email: string) => {
+  const response = await axiosInstance.post('/auth/forgot-password', { email });
+  return response;
+};
+
+export const resetPassword = async ({
+  body,
+  resetToken,
+}: {
+  body: InferredResetPasswordSchema;
+  resetToken: string;
+}) => {
+  const response = await axiosInstance.post(
+    `/auth/reset-password/${resetToken}`,
+    body,
+  );
 
   return response;
 };

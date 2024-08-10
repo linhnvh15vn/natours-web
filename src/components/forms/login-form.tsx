@@ -4,8 +4,10 @@ import React from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { type AxiosError } from 'axios';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { login } from '@/lib';
@@ -26,8 +28,11 @@ export default function LoginForm() {
 
   const { mutate } = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      // toast.success('Logged in successfully!');
+    },
+    onError: (error) => {
+      console.log(error);
     },
   });
 
