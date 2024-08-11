@@ -1,12 +1,17 @@
 import React from 'react';
 
+import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import styles from './footer.module.scss';
+
+const cx = classNames.bind(styles);
+
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer__logo">
+    <footer className={cx('footer')}>
+      <div className={cx('footer__logo')}>
         <Image
           src="/images/logo-green.png"
           width={150}
@@ -14,7 +19,7 @@ export default function Footer() {
           alt="Natour logo"
         />
       </div>
-      <ul className="footer__nav">
+      <ul className={cx('footer__nav')}>
         <li>
           <Link href="#">About us</Link>
         </li>
@@ -31,9 +36,8 @@ export default function Footer() {
           <Link href="#">Contact</Link>
         </li>
       </ul>
-      <p className="footer__copyright">
-        &copy; by Jonas Schmedtmann. Feel free to use this project for your own
-        purposes, EXCEPT producing your own course or tutorials!
+      <p className={cx('footer__copyright')}>
+        &copy; {new Date().getFullYear()} Natours
       </p>
     </footer>
   );

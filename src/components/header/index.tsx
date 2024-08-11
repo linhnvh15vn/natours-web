@@ -3,10 +3,15 @@
 import React from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { getMe } from '@/lib';
+
+import styles from './header.module.scss';
+
+const cx = classNames.bind(styles);
 
 export default function Header() {
   const { data: meData } = useQuery({
@@ -15,13 +20,13 @@ export default function Header() {
   });
 
   return (
-    <header className="header">
-      <nav className="nav nav--tours">
-        <Link className="nav__el" href="/">
+    <header className={cx('header')}>
+      <nav className={cx('nav', 'nav--tours')}>
+        <Link className={cx('nav__el')} href="/">
           All tours
         </Link>
       </nav>
-      <div className="header__logo">
+      <div className={cx('header__logo')}>
         <Image
           src="/images/logo-white.png"
           alt="Natours logo"
@@ -29,15 +34,15 @@ export default function Header() {
           height={35}
         />
       </div>
-      <nav className="nav nav--user">
+      <nav className={cx('nav', 'nav--user')}>
         {meData ? (
           <>
-            <Link className="nav__el nav__el--logout" href="#">
+            <Link className={cx('nav__el', 'nav__el--logout')} href="#">
               Log out
             </Link>
-            <Link className="nav__el" href="/me">
+            <Link className={cx('nav__el')} href="/me">
               <Image
-                className="nav__user-img"
+                className={cx('nav__user-img')}
                 src={meData.photo}
                 alt={`Photo of ${meData.name}`}
                 width={35}
@@ -48,10 +53,10 @@ export default function Header() {
           </>
         ) : (
           <>
-            <Link className="nav__el" href="/login">
+            <Link className={cx('nav__el')} href="/login">
               Log in
             </Link>
-            <Link className="nav__el nav__el--cta" href="/sign-up">
+            <Link className={cx('nav__el', 'nav__el--cta')} href="/sign-up">
               Sign up
             </Link>
           </>
