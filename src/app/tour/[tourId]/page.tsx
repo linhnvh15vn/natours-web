@@ -44,13 +44,13 @@ export default async function Page({ params }: Props) {
     <main className="">
       <section className="section-header">
         <div className="header__hero">
-          <div className="header__hero-overlay">&nbsp;</div>
           <Image
             className="header__hero-img"
             src={tour.imageCover}
             alt={tour.name}
             fill
           />
+          <div className="header__hero-overlay">&nbsp;</div>
         </div>
         <div className="heading-box">
           <h1 className="heading-primary">

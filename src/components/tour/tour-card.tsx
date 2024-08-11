@@ -10,12 +10,29 @@ interface Props {
 }
 
 export default function TourCard({ tour }: Props) {
+  const infos = [
+    {
+      icon: '/icons.svg#icon-map-pin',
+      text: tour.startLocation.description,
+    },
+    {
+      icon: '/icons.svg#icon-calendar',
+      text: dayjs(tour.startDates[0]).format('YYYY/MM/DD'),
+    },
+    {
+      icon: '/icons.svg#icon-flag',
+      text: `${tour.locations.length} stops`,
+    },
+    {
+      icon: '/icons.svg#icon-user',
+      text: `${tour.maxGroupSize} people`,
+    },
+  ];
+
   return (
     <div className="card">
       <div className="card__header">
         <div className="card__picture">
-          <div className="card__picture-overlay">&nbsp;</div>
-          {/* fix overlay behind image */}
           <Image
             className="card__picture-img"
             src={tour.imageCover}
@@ -26,6 +43,7 @@ export default function TourCard({ tour }: Props) {
             placeholder="blur"
             blurDataURL="/"
           />
+          <div className="card__picture-overlay">&nbsp;</div>
         </div>
         <h3 className="heading-tertirary">
           <span>{tour.name}</span>
@@ -37,30 +55,14 @@ export default function TourCard({ tour }: Props) {
           {tour.difficulty} {tour.duration}-day tour
         </h4>
         <p className="card__text">{tour.summary}</p>
-        <div className="card__data">
-          <svg className="card__icon">
-            <use xlinkHref="/icons.svg#icon-map-pin" />
-          </svg>
-          <span>{tour.startLocation.description}</span>
-        </div>
-        <div className="card__data">
-          <svg className="card__icon">
-            <use xlinkHref="/icons.svg#icon-calendar" />
-          </svg>
-          <span>{dayjs(tour.startDates[0]).format('YYYY/MM/DD')}</span>
-        </div>
-        <div className="card__data">
-          <svg className="card__icon">
-            <use xlinkHref="/icons.svg#icon-flag" />
-          </svg>
-          <span>{tour.locations.length} stops</span>
-        </div>
-        <div className="card__data">
-          <svg className="card__icon">
-            <use xlinkHref="/icons.svg#icon-user" />
-          </svg>
-          <span>{tour.maxGroupSize} people</span>
-        </div>
+        {infos.map((info) => (
+          <div key={info.icon} className="card__data">
+            <svg className="card__icon">
+              <use xlinkHref={info.icon} />
+            </svg>
+            <span>{info.text}</span>
+          </div>
+        ))}
       </div>
 
       <div className="card__footer">
